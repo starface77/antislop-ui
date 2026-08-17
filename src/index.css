@@ -1,0 +1,36 @@
+/* AntiSlop UI Global Stylesheet */
+@import './styles/tokens.css';
+
+:root {
+  color-scheme: light dark;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--p-app);
+  color: var(--p-t-900);
+  font-family: var(--p-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--p-app);
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Strict Zero Border & Zero Shadow Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
