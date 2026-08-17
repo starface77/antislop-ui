@@ -335,7 +335,7 @@ The library exports 100+ primitives and composite modules organized across funct
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/antislop-ui.git
+git clone https://github.com/starface77/antislop-ui.git
 
 # Navigate to project directory
 cd antislop-ui
