@@ -1,132 +1,359 @@
-# Pure UI ⚡
+<div align="center">
 
-> **Zero Border. Zero Shadow. Pure Tactile Surface.**  
-> An anti-slop React component library crafted for the AI era.
+# AntiSlop UI
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-black.svg)](https://www.typescriptlang.org/)
-[![Zero Runtime Overhead](https://img.shields.io/badge/Overhead-0kb-black.svg)]()
+**Zero-Border, Zero-Shadow Design System and Component Library for React.**
+
+[![npm version](https://img.shields.io/badge/npm-v2.0.0-black?style=flat-square&logo=npm)](https://www.npmjs.com/package/@antislop/ui)
+[![License: MIT](https://img.shields.io/badge/License-MIT-black?style=flat-square)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-black?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-18%20%2F%2019-black?style=flat-square&logo=react)](https://react.dev/)
+[![Bundle Size](https://img.shields.io/badge/gzipped-88_kB-black?style=flat-square)](https://bundlephobia.com)
+
+<p align="center">
+  <a href="#overview">Overview</a> &bull;
+  <a href="#design-invariants">Design Invariants</a> &bull;
+  <a href="#visual-preview">Visual Preview</a> &bull;
+  <a href="#installation">Installation</a> &bull;
+  <a href="#quick-start">Quick Start</a> &bull;
+  <a href="#design-tokens">Design Tokens</a> &bull;
+  <a href="#component-api">Component API</a> &bull;
+  <a href="#license">License</a>
+</p>
+
+</div>
 
 ---
 
-## 💎 Philosophy
+## Visual Preview
 
-99% of modern component libraries suffer from **Wireframe Bloat**:
-* Harsh 1px borders wrapping every container (`border: 1px solid #e5e7eb`).
-* Muddy, sluggish drop-shadows.
-* No native primitives for AI streaming, reasoning foldouts, or tool executions.
+### Dark Theme Interface
+![AntiSlop UI Interface — Dark Theme](./assets/dark.png)
 
-**Pure UI** establishes visual hierarchy purely through:
-1. **Layered Surface Contrast:** `App` → `Surface` → `Soft` → `Hover`.
-2. **macOS Spring Physics:** Physical tactile feedback (`scale(0.96)`) on every click.
-3. **AI-Native First:** First-class components for LLM chats, tool execution pills, model selectors, and diff inspectors.
+### Light Theme Interface
+![AntiSlop UI Interface — Light Theme](./assets/light.png)
 
 ---
 
-## 📦 Quick Start
+## Overview
 
-### Install via CLI (shadcn-style)
+AntiSlop UI is a React component system built around strict visual invariants: **zero borders** and **zero drop shadows**. 
+
+Traditional web interfaces rely heavily on 1px borders and artificial blurred box-shadows to separate elements. In dense dashboard and FinTech environments, this creates visual noise, unnecessary cognitive load, and dated aesthetics.
+
+AntiSlop UI establishes depth, elevation, and hierarchy exclusively through:
+1. **Calibrated Multi-Layer Surface Luminance**: Discrete luminance contrast steps between Canvas, Surface, Soft container, and Sunken inputs.
+2. **macOS-Grade Spring Physics**: Tactile cubic-bezier transitions (`cubic-bezier(0.175, 0.885, 0.32, 1.275)`) delivering immediate physical feedback.
+3. **Hardware-Accelerated Backdrop Filters**: Optical blur overlays (`backdrop-filter: blur(16px–20px)`) for sheets, dialogs, and floating navigation.
+4. **Zero External Runtime Dependencies**: Pure React and standard CSS Custom Properties.
+
+---
+
+## Design Invariants
+
+```
++-------------------------------------------------------------------+
+| Layer 0: App Canvas Canvas             (--p-app: #08080a)         |
+|   +-------------------------------------------------------------+ |
+|   | Layer 1: Elevated Surface Card     (--p-surface: #141419)   | |
+|   |   +-------------------------------------------------------+ | |
+|   |   | Layer 2: Inner Widget Container (--p-soft: #1c1c24)   | | |
+|   |   |   +-------------------------------------------------+ | | |
+|   |   |   | Layer 3: Tactile Recessed Input (--p-input-bg)  | | | |
+|   |   |   +-------------------------------------------------+ | | |
+|   |   +-------------------------------------------------------+ | |
+|   +-------------------------------------------------------------+ |
++-------------------------------------------------------------------+
+```
+
+| Property | AntiSlop UI Standard | Conventional UI Libraries |
+| :--- | :--- | :--- |
+| **Borders** | `border: none` (0px) | `1px solid rgba(255,255,255,0.1)` |
+| **Shadows** | `box-shadow: none` | `0 10px 30px rgba(0,0,0,0.5)` |
+| **Depth Engine** | Multi-tier surface luminance | Blur radii and spread distances |
+| **Overlays** | Hardware optical blur (`16px`) | Solid tint with high opacity |
+| **Interaction Physics** | Sub-millisecond spring curves | Linear or generic ease-in-out |
+| **Bundle Overhead** | Zero runtime CSS dependencies | Heavy runtime CSS-in-JS injection |
+
+---
+
+## Installation
+
+Install `@antislop/ui` along with `lucide-react` icons:
 
 ```bash
-npx pure-ui add button dialog agent-bubble model-selector
+npm install @antislop/ui lucide-react
 ```
 
-Or install all core components:
+Or using alternative package managers:
 
 ```bash
-npm install @pure-ui/core
+# pnpm
+pnpm add @antislop/ui lucide-react
+
+# bun
+bun add @antislop/ui lucide-react
+
+# yarn
+yarn add @antislop/ui lucide-react
+```
+
+Import design tokens in your application entry point (`main.tsx`, `index.tsx`, or `_app.tsx`):
+
+```tsx
+import '@antislop/ui/styles/tokens.css';
 ```
 
 ---
 
-## 🎨 Component Suite
+## Quick Start
 
-### 1. Tactile Buttons & Inputs
+### FinTech Analytics & Controls Example
+
 ```tsx
-import { Button, IconButton } from '@pure-ui/core';
+import React, { useState } from 'react';
+import {
+  Card,
+  StatCard,
+  Sparkline,
+  Input,
+  PasswordInput,
+  PinInput,
+  Select,
+  Button,
+  Dialog,
+  Badge,
+} from '@antislop/ui';
+import { Mail, Zap, TrendingUp } from 'lucide-react';
 
-<Button variant="primary" size="md">Deploy Now</Button>
-<Button variant="secondary">Cancel</Button>
-<Button variant="ghost">Settings</Button>
-```
+export function ClusterDashboard() {
+  const [pin, setPin] = useState('5921');
+  const [plan, setPlan] = useState('pro');
+  const [dialogOpen, setDialogOpen] = useState(false);
 
-### 2. Segmented Control (macOS Pill)
-```tsx
-import { SegmentedControl } from '@pure-ui/core';
+  return (
+    <Card
+      title="Cluster Infrastructure"
+      subtitle="42 edge nodes synchronized with zero cold starts."
+      action={<Badge variant="success" dot>Operational</Badge>}
+    >
+      {/* 2x2 Metric Grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        <StatCard
+          title="Throughput"
+          value="4.8 GB/s"
+          change="+14.2%"
+          trend="up"
+          icon={<TrendingUp size={13} />}
+        />
+        <div style={{ padding: 12, backgroundColor: 'var(--p-soft)', borderRadius: 'var(--p-r-md)' }}>
+          <Sparkline
+            data={[14, 22, 18, 36, 42, 38, 56, 64, 58, 80]}
+            color="var(--p-success)"
+            height={32}
+          />
+        </div>
+      </div>
 
-<SegmentedControl
-  options={[
-    { value: 'code', label: 'Code' },
-    { value: 'vibe', label: 'Vibe Mode', badge: 'Active' },
-    { value: 'agents', label: 'Multi-Agent' },
-  ]}
-  value={mode}
-  onChange={setMode}
-/>
-```
+      {/* Tactile Form Inputs */}
+      <Input
+        label="Workspace Email"
+        icon={<Mail size={13} />}
+        value="alex.chen@antislop.dev"
+        onChange={() => {}}
+      />
 
-### 3. AI Agent Turn with Collapsible Reasoning
-```tsx
-import { AgentBubble, ToolPill } from '@pure-ui/core';
+      <PasswordInput
+        label="Access Secret"
+        value="secret_live_8912"
+        onChange={() => {}}
+      />
 
-<AgentBubble
-  role="assistant"
-  name="Claude 3.7 Sonnet"
-  reasoning="Audited design tokens. 0 borders, 0 box-shadows detected."
-  reasoningDuration="0.28s"
-  tools={<ToolPill name="verify_tokens" status="ok" />}
-  content="Workspace refactored cleanly to Pure UI standard."
-/>
-```
+      {/* Aligned 2FA PIN and Select Controls */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 16, alignItems: 'flex-start' }}>
+        <PinInput
+          label="2FA PIN Code"
+          length={4}
+          value={pin}
+          onChange={setPin}
+        />
+        <div style={{ minWidth: 0 }}>
+          <Select
+            label="Plan"
+            value={plan}
+            onChange={setPlan}
+            options={[
+              { value: 'core', label: 'Community Core ($0)' },
+              { value: 'pro', label: 'Enterprise Pro ($49/mo)' },
+              { value: 'scale', label: 'Dedicated Scale (Custom)' },
+            ]}
+          />
+        </div>
+      </div>
 
-### 4. Zero-Shadow Centered Dialog
-```tsx
-import { Dialog, Button } from '@pure-ui/core';
+      <Button
+        variant="primary"
+        icon={<Zap size={13} />}
+        onClick={() => setDialogOpen(true)}
+      >
+        Deploy Infrastructure
+      </Button>
 
-<Dialog
-  open={isOpen}
-  onClose={() => setIsOpen(false)}
-  title="Deploy to Edge"
-  description="Your bundle is compiled with zero runtime overhead."
-  footer={<Button variant="primary" onClick={deploy}>Confirm</Button>}
->
-  <p>42 edge locations ready.</p>
-</Dialog>
+      {/* Optical Blur Sheet Dialog */}
+      <Dialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        title="Confirm Infrastructure Deployment"
+        description="Propagating 100+ design tokens across 42 global edge clusters."
+        icon={<Zap size={18} color="var(--p-success)" />}
+        footer={
+          <>
+            <Button variant="ghost" size="sm" onClick={() => setDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => setDialogOpen(false)}
+            >
+              Deploy Now
+            </Button>
+          </>
+        }
+      >
+        <p>Deployment will initiate mTLS mutual handshake across all regional nodes.</p>
+      </Dialog>
+    </Card>
+  );
+}
 ```
 
 ---
 
-## 🛠 Design Tokens
+## Design Tokens
 
-Pure UI comes with built-in Light, Dark, and Midnight palettes:
+Tokens are exposed as standard CSS Custom Properties and adapt automatically based on the `data-theme` attribute (`light`, `dark`, or `midnight`).
+
+```html
+<html data-theme="dark">
+```
+
+### Surface & Canvas Tokens
+
+| Token | Light (`light`) | Dark (`dark`) | Midnight (`midnight`) | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `--p-app` | `#f2f3f6` | `#08080a` | `#020204` | Application canvas canvas |
+| `--p-surface` | `#ffffff` | `#141419` | `#0e0e13` | Elevated card container |
+| `--p-soft` | `#e8e9ef` | `#1c1c24` | `#161620` | Inner widget background |
+| `--p-input-bg` | `#eaebee` | `#14141a` | `#0b0b10` | Tactile recessed input |
+| `--p-hover` | `#dedfe7` | `#252530` | `#20202e` | Interactive hover state |
+| `--p-t-900` | `#0f0f13` | `#fafafc` | `#ffffff` | Primary text |
+| `--p-t-500` | `#717180` | `#6c6c7c` | `#5a5a68` | Secondary / muted text |
+| `--p-success` | `#16a34a` | `#34d399` | `#34d399` | Success / live indicator |
+| `--p-danger` | `#dc2626` | `#f87171` | `#f87171` | Error / danger state |
+
+### Motion & Radius Tokens
 
 ```css
-:root {
-  --p-app: #f7f7f9;
-  --p-surface: #ffffff;
-  --p-soft: #efeff2;
-  --p-t-900: #121215;
-  --p-border: none;
-  --p-shadow: none;
-}
+--p-r-sm: 6px;
+--p-r-md: 10px;
+--p-r-lg: 14px;
+--p-r-xl: 18px;
+--p-r-full: 9999px;
 
-[data-theme='dark'] {
-  --p-app: #0d0d10;
-  --p-surface: #141418;
-  --p-soft: #1d1d23;
-  --p-t-900: #fafafc;
-}
-
-[data-theme='midnight'] {
-  --p-app: #050507;
-  --p-surface: #0b0b0f;
-  --p-soft: #121217;
-  --p-t-900: #ffffff;
-}
+--p-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+--p-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+--p-ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 ```
 
 ---
 
-## 📄 License
+## Component API
 
-MIT © 2026 Pure UI Contributors.
+The library exports 100+ primitives and composite modules organized across functional domains:
+
+### 1. Structure & Shell
+- `Card`: Zero-border container with header, subtitle, actions, and surface contrast.
+- `SectionHeader`: Section titles with metadata counters and action slots.
+- `Divider`: Pure surface separator without 1px border lines.
+- `Breadcrumb`: Interactive navigation path with click handlers.
+- `Stack`: Flexible flexbox alignment container.
+
+### 2. Form Controls & Inputs
+- `Input`: Single-line text field with icon prefixes, suffixes, and error states.
+- `PasswordInput`: Masked input with toggle visibility action.
+- `PinInput`: 2FA OTP segmented input with automatic key navigation and backspace handling.
+- `NumberInput`: Stepper control with increment and decrement constraints.
+- `Textarea`: Multi-line text input with automatic line height calculation.
+- `SearchInput`: Search control with keyboard shortcut (`⌘K`) indicator and clear action.
+- `Dropzone`: Drag-and-drop file upload zone.
+
+### 3. Selection & Ranges
+- `Select`: Custom dropdown selector with keyboard navigation.
+- `MultiSelect`: Multi-item pill selector with individual tag removal.
+- `Slider`: Range slider with tactile thumb physics.
+- `RangeSlider`: Dual-handle min/max range selector.
+- `DatePicker`: Calendar date picker with month navigation.
+- `ColorPicker`: Palette swatch selector.
+- `SegmentedControl`: Sliding pill selector with spring transitions.
+- `Checkbox`: Tactile toggle box.
+- `Switch`: iOS-style binary switch.
+- `RadioGroup`: Segmented radio option list.
+
+### 4. FinTech & Telemetry
+- `Sparkline`: Lightweight SVG trend sparkline chart with customizable stroke and fill.
+- `StatCard`: KPI summary card with percentage delta, direction indicators, and icon slots.
+- `ActivityHeatmap`: Contribution and activity matrix grid.
+- `PricingTier`: SaaS subscription tier card with feature checklist and popular highlight.
+- `CreditCardPreview`: Virtual credit card renderer with chip and masked PAN.
+- `InvoiceRow`: Financial transaction row item with status badge.
+
+### 5. Overlays & Dialogs
+- `Dialog`: macOS-style sheet dialog with `16px` backdrop blur and escape key handling.
+- `Drawer`: Slide-out panel for configurations and complex forms.
+- `CommandPalette`: Global `⌘K` command search palette with fuzzy filtering.
+- `ContextMenu`: Right-click contextual action menu.
+- `DropdownMenu`: Anchor-aligned action menu.
+- `Tooltip`: Micro-interaction tooltip with automatic positioning.
+
+### 6. Data & Feedback
+- `Table`: Zero-border fixed data table with hover highlighting and row click callbacks.
+- `Badge`: Capsule badge with status dot indicators (`success`, `danger`, `neutral`, `pro`).
+- `StatusDot`: Animated heartbeat status indicator.
+- `Progress`: Linear progress indicator with percentage output.
+- `CircularProgress`: Radial progress gauge with SVG stroke calculations.
+- `Spinner`: Micro-interaction loading indicator.
+- `Skeleton`: Content placeholder shimmer with rectangle, circle, and text variants.
+- `Toast`: Imperative notification toast system.
+- `Accordion`: Collapsible disclosure panel with spring physics.
+- `Tree`: Hierarchical folder and node tree navigator.
+- `Timeline`: Chronological event sequence list.
+
+---
+
+## Local Development
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/antislop-ui.git
+
+# Navigate to project directory
+cd antislop-ui
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Run production build validation
+npm run build
+```
+
+---
+
+## License
+
+MIT License &copy; 2026 **AntiSlop UI Foundation**
+
+Free for use in personal, open-source, and commercial SaaS applications.
