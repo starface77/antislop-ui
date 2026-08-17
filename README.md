@@ -4,11 +4,11 @@
 
 **Zero-Border, Zero-Shadow Design System and Component Library for React.**
 
-[![npm version](https://img.shields.io/badge/npm-v2.0.0-black?style=flat-square&logo=npm)](https://www.npmjs.com/package/@antislop/ui)
+[![npm version](https://img.shields.io/badge/npm-v0.1.0-black?style=flat-square&logo=npm)](https://www.npmjs.com/package/@danilvladov/antislop-ui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-black?style=flat-square)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-black?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18%20%2F%2019-black?style=flat-square&logo=react)](https://react.dev/)
-[![Bundle Size](https://img.shields.io/badge/gzipped-88_kB-black?style=flat-square)](https://bundlephobia.com)
+[![Bundle Size](https://img.shields.io/badge/gzipped-58.9_kB-black?style=flat-square)](https://bundlephobia.com)
 
 <p align="center">
   <a href="#overview">Overview</a> &bull;
@@ -79,29 +79,29 @@ AntiSlop UI establishes depth, elevation, and hierarchy exclusively through:
 
 ## Installation
 
-Install `@antislop/ui` along with `lucide-react` icons:
+Install `@danilvladov/antislop-ui` along with `lucide-react` icons:
 
 ```bash
-npm install @antislop/ui lucide-react
+npm install @danilvladov/antislop-ui lucide-react
 ```
 
 Or using alternative package managers:
 
 ```bash
 # pnpm
-pnpm add @antislop/ui lucide-react
+pnpm add @danilvladov/antislop-ui lucide-react
 
 # bun
-bun add @antislop/ui lucide-react
+bun add @danilvladov/antislop-ui lucide-react
 
 # yarn
-yarn add @antislop/ui lucide-react
+yarn add @danilvladov/antislop-ui lucide-react
 ```
 
 Import design tokens in your application entry point (`main.tsx`, `index.tsx`, or `_app.tsx`):
 
 ```tsx
-import '@antislop/ui/styles/tokens.css';
+import '@danilvladov/antislop-ui/styles/tokens.css';
 ```
 
 ---
@@ -123,7 +123,7 @@ import {
   Button,
   Dialog,
   Badge,
-} from '@antislop/ui';
+} from '@danilvladov/antislop-ui';
 import { Mail, Zap, TrendingUp } from 'lucide-react';
 
 export function ClusterDashboard() {
