@@ -1,6 +1,6 @@
 {
   "name": "@danilvladov/antislop-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Zero-Border, Zero-Shadow React UI component system. Calibrated luminance surface hierarchy, macOS spring physics, and FinTech telemetry widgets.",
   "type": "module",
   "main": "./dist/index.cjs",
